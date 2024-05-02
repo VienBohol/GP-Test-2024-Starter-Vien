@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dds1upycm1wgn"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(12, 12)
+amount = 100
+lifetime = 0.5
+explosiveness = 1.0
+lifetime_randomness = 0.38
+emission_shape = 1
+emission_sphere_radius = 1.79
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 27.78

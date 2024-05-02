@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://b676dtd2sev2q"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_aak3s"]
+[ext_resource type="PackedScene" uid="uid://dr4dvw20fcguw" path="res://character_body_2d.tscn" id="1_tn0er"]
+
+[sub_resource type="Curve2D" id="Curve2D_msrrd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -162, -116, 0, 0, 0, 0, 1293, -130, 0, 0, 0, 0, 1331, 785, 0, 0, 0, 0, -151, 761, 0, 0, 0, 0, -160, -116, 0, 0, 0, 0, 1298, -128, 0, 0, 0, 0, -162, -116)
+}
+point_count = 7
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_aak3s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.88, 16.2)
+color = Color(0.709804, 0.909804, 0.611765, 1)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_tn0er")]
+position = Vector2(531, 323)
+
+[node name="Path2D" type="Path2D" parent="CharacterBody2D"]
+position = Vector2(-758.571, -461.429)
+scale = Vector2(1.42857, 1.42857)
+curve = SubResource("Curve2D_msrrd")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="CharacterBody2D/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-162, -116)
+rotation = -0.0096217
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.670588)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+modulate = Color(0.596078, 0.00784314, 0.239216, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 120
+text = "GAME OVER
+"
+
+[connection signal="health_depleted" from="CharacterBody2D" to="." method="_on_character_body_2d_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

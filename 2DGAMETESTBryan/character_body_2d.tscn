@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr4dvw20fcguw"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_wir28"]
+[ext_resource type="Texture2D" uid="uid://egb76vb6b76" path="res://icon.svg" id="2_letep"]
+[ext_resource type="PackedScene" uid="uid://b0fa34sg1br0t" path="res://Gun.tscn" id="3_84omm"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_esi2g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faymw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yhoq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rigd4"]
+bg_color = Color(0.345098, 0.364706, 0.466667, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_af5o4"]
+bg_color = Color(0.788235, 0, 0.321569, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(274, 150)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_wir28")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+rotation = -3.14159
+scale = Vector2(80, 80)
+mesh = SubResource("QuadMesh_esi2g")
+texture = ExtResource("2_letep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_faymw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" parent="." instance=ExtResource("3_84omm")]
+position = Vector2(0, -2.26498e-06)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_7yhoq")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -117.0
+offset_top = -121.0
+offset_right = 112.0
+offset_bottom = -85.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rigd4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_af5o4")
+value = 100.0
+show_percentage = false
